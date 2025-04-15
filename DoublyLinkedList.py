@@ -51,26 +51,51 @@ class DoublyLinkedList:
             v = v.next
         return None
         
-    def moveAfter(self, a, x): #splice(a,a,x)ß #다시
-        self.splice(a,a,x)
+    def moveAfter(self, a, b):#다시
+        self.splice(b,b,a.prev)
     
-    def moveBefore(self, a, x):#다시
-        self.splice(a,a,x.prev)
+    def moveBefore(self, a, b):#다시
+        self.splice(b,b,a)
         
     def insertAfter(self, key, x): #moveAfter(Node(key), x) == splice(Node(a), Node(a), x)
         newNode = Node(key)
         if(type(x)==int):
             x = self.search(x)
-        self.splice(newNode, newNode, x)
+        self.splice(newNode, newNode, x.prev)
     
-    def insertBefore():
-        pass
+    def insertBefore(self, key, x):
+        newNode = Node(key)
+        if(type(x)==int):
+            x = self.search(x)
+        self.splice(newNode, newNode, x)
 
     def pushFront(self, key): #insertAfter(key, self.head)
-        self.insertAfter(key, self.head)
+        self.insertBefore(key, self.head)
         
-    def pushBack():
+    def pushBack(self, key):
+        self.insertAfter(key, self.head)
+
+    def remove(self, x):
+        if(x == None): return False
+        x.prev.next = x.next
+        x.next.prev = x.prev
+        return x
+
+    def popFront(self):
+        return self.remove(self.first()).key
+
+    def popBack():
         pass
+
+    def isEmpty(self):
+        if(self.head.next == self): return True
+        return False
+
+    def first(self):
+        return self.head.next
+
+    def last(self):
+        return self.head.prev
 
 if __name__ == '__main__':
     L = DoublyLinkedList()
