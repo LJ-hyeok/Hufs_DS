@@ -4,4 +4,5 @@ for i in range(len(a)):
     print(i,len(a))
     
     수정중
+    여기도 수정해보기
     
