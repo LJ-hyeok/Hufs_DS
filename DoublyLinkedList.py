@@ -84,8 +84,8 @@ class DoublyLinkedList:
     def popFront(self):
         return self.remove(self.first()).key
 
-    def popBack():
-        pass
+    def popBack(self):
+        return self.remove(self.last()).key
 
     def isEmpty(self):
         if(self.head.next == self): return True
@@ -97,6 +97,27 @@ class DoublyLinkedList:
     def last(self):
         return self.head.prev
 
+    def findMax(self):
+        if (self.head.next == self): return None
+        v = M = self.head.next
+        while(v != self.head):
+            if M.key < v.key : 
+                M = v
+            v = v.next
+        return M
+    
+    def deleteMax(self):
+        m = self.findMax()
+        if m == None:
+            return None
+        return self.remove(m)
+
+    def sort(self):
+        sortedList = DoublyLinkedList()
+        while(self.head.next != self.head):
+            sortedList.pushFront(self.deleteMax())
+        return sortedList
+    
 if __name__ == '__main__':
     L = DoublyLinkedList()
     while True:
