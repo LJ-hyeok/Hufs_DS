@@ -33,15 +33,15 @@ class DoublyLinkedList:
             return
         ap = a.prev
         bn = b.next
-        xn = x.next
         #cut
         ap.next = bn
         bn.prev = ap
         #paste
-        x.next = a
-        a.prev = x
-        b.next = xn
+        xn = x.next
         xn.prev = b
+        b.next = xn
+        a.prev = x
+        x.next = a
   
     def search(self, key):
         v = self.head.next
@@ -52,28 +52,30 @@ class DoublyLinkedList:
         return None
         
     def moveAfter(self, a, b):#다시
-        self.splice(b,b,a.prev)
+        if(a.prev == b): return
+        self.splice(a,a,b)
     
     def moveBefore(self, a, b):#다시
-        self.splice(b,b,a)
+        if(a.next == b): return
+        self.splice(a,a,b.prev)
         
     def insertAfter(self, key, x): #moveAfter(Node(key), x) == splice(Node(a), Node(a), x)
         newNode = Node(key)
         if(type(x)==int):
             x = self.search(x)
-        self.splice(newNode, newNode, x.prev)
+        self.moveAfter(newNode,x)
     
     def insertBefore(self, key, x):
         newNode = Node(key)
         if(type(x)==int):
             x = self.search(x)
-        self.splice(newNode, newNode, x)
+        self.moveBefore(newNode,x)
 
     def pushFront(self, key): #insertAfter(key, self.head)
-        self.insertBefore(key, self.head)
+        self.insertAfter(key, self.head)
         
     def pushBack(self, key):
-        self.insertAfter(key, self.head)
+        self.insertBefore(key, self.head)
 
     def remove(self, x):
         if(x == None): return False
@@ -88,7 +90,7 @@ class DoublyLinkedList:
         return self.remove(self.last()).key
 
     def isEmpty(self):
-        if(self.head.next == self): return True
+        if(self.head.next == self.head): return True
         return False
 
     def first(self):
@@ -98,7 +100,7 @@ class DoublyLinkedList:
         return self.head.prev
 
     def findMax(self):
-        if (self.head.next == self): return None
+        if (self.isEmpty()): return None
         v = M = self.head.next
         while(v != self.head):
             if M.key < v.key : 
@@ -115,7 +117,7 @@ class DoublyLinkedList:
     def sort(self):
         sortedList = DoublyLinkedList()
         while(self.head.next != self.head):
-            sortedList.pushFront(self.deleteMax())
+            sortedList.pushFront(self.deleteMax().key)
         return sortedList
     
 if __name__ == '__main__':
