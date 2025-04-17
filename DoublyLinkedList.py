@@ -51,11 +51,11 @@ class DoublyLinkedList:
             v = v.next
         return None
         
-    def moveAfter(self, a, b):#다시
+    def moveAfter(self, a, b):
         if(a.prev == b): return
         self.splice(a,a,b)
     
-    def moveBefore(self, a, b):#다시
+    def moveBefore(self, a, b):
         if(a.next == b): return
         self.splice(a,a,b.prev)
         
