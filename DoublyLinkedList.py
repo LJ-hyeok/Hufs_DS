@@ -27,7 +27,7 @@ class DoublyLinkedList:
             print(str(v.key)+" -> ", end="")
             v = v.next
         print("h]")
-        
+
     def splice(self,a,b,x):
         if a==None or b==None or x==None:
             return
@@ -42,7 +42,7 @@ class DoublyLinkedList:
         b.next = xn
         a.prev = x
         x.next = a
-  
+
     def search(self, key):
         v = self.head.next
         while(v != self.head):
@@ -50,21 +50,21 @@ class DoublyLinkedList:
                 return v
             v = v.next
         return None
-        
+
     def moveAfter(self, a, b):
         if(a.prev == b): return
         self.splice(a,a,b)
-    
+
     def moveBefore(self, a, b):
         if(a.next == b): return
         self.splice(a,a,b.prev)
-        
+
     def insertAfter(self, key, x): #moveAfter(Node(key), x) == splice(Node(a), Node(a), x)
         newNode = Node(key)
         if(type(x)==int):
             x = self.search(x)
         self.moveAfter(newNode,x)
-    
+
     def insertBefore(self, key, x):
         newNode = Node(key)
         if(type(x)==int):
@@ -73,7 +73,7 @@ class DoublyLinkedList:
 
     def pushFront(self, key): #insertAfter(key, self.head)
         self.insertAfter(key, self.head)
-        
+
     def pushBack(self, key):
         self.insertBefore(key, self.head)
 
@@ -107,7 +107,7 @@ class DoublyLinkedList:
                 M = v
             v = v.next
         return M
-    
+
     def deleteMax(self):
         m = self.findMax()
         if m == None:
@@ -119,7 +119,7 @@ class DoublyLinkedList:
         while(self.head.next != self.head):
             sortedList.pushFront(self.deleteMax().key)
         return sortedList
-    
+
 if __name__ == '__main__':
     L = DoublyLinkedList()
     while True:
@@ -217,4 +217,3 @@ if __name__ == '__main__':
             break
         else:
             print("* not allowed command.")
-
