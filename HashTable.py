@@ -57,17 +57,14 @@ for i in range(len(id_list)):
 
 
 
-#for i in range(100):
-#    print(MyHash[i].key)
-
-'''
-MyNum = 202202976
+MyNum = 202300418 
 for i in range(100):
     L = grade.readline()
     if(MyHash[i].key == MyNum):
-        print(i, L)
-'''
+        print(L)
 
+
+'''
 sco = []
 for i in range(100):
     L = grade.readline()
@@ -78,3 +75,4 @@ for i in range(100):
 
 sco.sort()
 print(sco)
+'''
