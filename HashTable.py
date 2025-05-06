@@ -57,7 +57,7 @@ for i in range(len(id_list)):
 
 
 
-MyNum = 202300418 
+MyNum = 202202976
 for i in range(100):
     L = grade.readline()
     if(MyHash[i].key == MyNum):
