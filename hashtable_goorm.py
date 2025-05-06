@@ -35,9 +35,9 @@ class HashOpenAddr:
         #  1. 빈 슬롯이 없는 경우: None 리턴
         #  2. 빈 슬롯이 있는 경우: key 값이 저장될 슬롯 인덱스 리턴
 
-	def set(self, key, value=None):
+	def set(self, key, value=0):
 		i = self.find_slot(key)
-		if i == None: return False
+		if i == None: return None
 		self.keys[i] = key
 		self.values[i] = value
 		return True        
@@ -57,10 +57,14 @@ class HashOpenAddr:
 		return True
         # key 값이 없으면 False 리턴, 있으면 제거 후 True 리턴
 
-	def search(self, key): 
-		for i in range(self.size):
-			if(self.keys[i] == key):
-				return key
+	def search(self, key):
+		i = self.find_slot(key)
+		start = i
+		while self.keys[i]:
+			if self.keys[i] == key:
+				i = (i+1) % self.size
+			if start == i:
+				break
 		return None
         # key 값이 있으면 해당 value 값을 리턴하고, 없으면 None 리턴
 

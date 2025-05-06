@@ -46,14 +46,16 @@ class HashOpenAddr:
 		self.keys[i] = key
 		self.values[i] = value
 		return True        
-		# 빈 슬롯이 없으면 False 리턴, 아니면 True 리턴!
-
-	def search(self, key): 
-		for i in range(self.size):
-			if(self.keys[i] == key):
-				return key
+	
+	def search(self, key):
+		i = self.find_slot(key)
+		start = i
+		while self.keys[i]:
+			if self.keys[i] == key:
+				return self.values[i]
+			i = (i+1) % self.size
+			if start == i: break
 		return None
-        # key 값이 있으면 해당 value 값을 리턴하고, 없으면 None 리턴
 
 	def __getitem__(self, key):
 		return self.search(key)
@@ -81,6 +83,7 @@ def count_words(words: list[str], stop_words: set[str], start_rank: int, end_ran
 	# 2. start_rank부터 end_rank까지의 단어와 빈도수만 저장된 dict 자료구조 selected_words를 리턴한다
     H = HashOpenAddr()
     for i in range(start_rank-1, end_rank):
+        if words[i] in stop_words: continue
         if H.search(words[i]):
             H.values[H.find_slot(words[i])] += 1
         else:
@@ -92,6 +95,7 @@ def count_words(words: list[str], stop_words: set[str], start_rank: int, end_ran
 # Word Cloud 생성 및 출력
 def generate_wordcloud(freq_dict: dict[str, int]) -> None:
 	wordcloud = WordCloud(width=800, height=800, background_color='white')
+	wordcloud = WordCloud(colormap='rainbow').generate('text')
 	wordcloud.generate_from_frequencies(freq_dict)
 
 	plt.figure(figsize=(10, 10))
